@@ -1,43 +1,70 @@
-In the grand tapestry of existence, numbers dance and intertwine, spinning a rhythm of reason that orchestrates the universe. You are tasked with crafting an exquisite instrument, a Calculator, to join this cosmic ballet.
+# Pokemon Battle Simulation
 
-Certainly, here are the instructions for this exercise:
+You are tasked with simulating a battle between two Pokemon using JavaScript classes and methods. 
 
-Instructions
-Setup: Define a class named Calculator. The constructor of the class should have two properties:
+### Classes
 
-PI which is equal to Math.PI
-E which is equal to Math.E
-Methods: Implement the following methods:
+#### Pokemon
 
-ratio(x, y, width): This method should take three parameters - x, y and width, and returns the height based on the ratio x:y
+Create a class `Pokemon` that represents a Pokemon with the following properties:
 
-percentage(x, y): This method should take two parameters - x and y. Calculate the percentage of x in y and return it as a string with a '%' sign. If y is zero, return the error message 'Error: Divisor cannot be zero'.
+- `name`: A string that represents the name of the Pokemon.
+- `health`: A number that represents the health of the Pokemon.
+- `magic`: A number that represents the magic of the Pokemon.
+- `skills`: An array that holds the attack skills of the Pokemon. It starts as an empty array.
+- `counter`: A number that starts at 0 and increments every time the Pokemon launches a successful attack.
 
-add(x, y): This method should take two parameters - x and y. Return the sum of x and y.
+#### AttackSkill
 
-subtract(x, y): This method should take two parameters - x and y. Return the difference of it (y - x).
+Create a class `AttackSkill` that represents an attack skill of a Pokemon with the following properties:
 
-multiply(x, y): This method should take two parameters - x and y. Return the product of x and y.
+- `attack`: A string that represents the name of the attack.
+- `damage`: A number that represents the damage caused by the attack.
+- `magic`: A number that represents the magic cost of the attack.
 
-divide(x, y): This method should take two parameters - x and y. Return the quotient of x divided by y. If y is zero, return the error message 'Error: Divisor cannot be zero'.
+The `Pokemon` class should have the following methods:
 
-remainder(x, y): This method should take two parameters - x and y. Return the remainder of x divided by y. If y is zero, return the error message 'Error: Divisor cannot be zero'.
+- `learnAttackSkill(newskill)`: This method accepts an object of the `AttackSkill` class and adds it to the `skills` array.
+- `showStatus()`: This method logs the current health and magic of the Pokemon, and whether it has won the battle already, based on the `counter` (a Pokemon is considered to have won if the `counter` is greater than 3).
+- `getMagics()`: This method increases the Pokemon's magic by a random number between 0 and 20.
+- `hasEnoughMagic(skillName)`: This method checks if the Pokemon has enough magic to perform an attack skill. It returns `true` if the magic is enough and `false` otherwise.
+- `isAlive()`: This method checks if the Pokemon is alive by checking if its health is greater than 0. It returns `true` if the Pokemon is alive and `false` otherwise.
+- `attack(skillName, opponent)`: This method simulates an attack from the Pokemon to an opponent Pokemon. It checks if the Pokemon and the opponent are alive and if the Pokemon has enough magic to perform the attack. If the conditions are met, the method decreases the Pokemon's magic and the opponent's health based on the selected skill. It also increments the `counter` and calls the `showStatus` method for both Pokemon.
 
-elevate(x, y): This method should take two parameters - x and y. Return the power of x raised to y.
+### Instructions
 
-sqrt(x): This method should take one parameter - x. Return the square root of x. If x is a negative number, return the error message 'Error: Cannot calculate the square root of a negative number'.
+1. Create two Pokemon objects, for example, `pikachu` and `bulbasaur`, and assign them initial health and magic values.
+2. Create two attack skill objects, for example, `lightning` and `bombing`, and assign them attack, damage, and magic values.
+3. Make each Pokemon learn the attack skills by calling the `learnAttackSkill` method.
+4. Simulate an attack sequence by calling the `attack` method on each Pokemon in turns, selecting different attack skills each time.
 
-Notes
-Remember to handle edge cases, such as division by zero and square root of a negative number.
-Ensure that all strings returned are in the exact format as specified in the instructions.
-Read more on: Euler's Number
-Examples:
-console.log(calc.ratio(5, 7, 300)); // 420
-console.log(calc.percentage(3, 12)); // 25%
-console.log(calc.add(5, 7)); // 12
-console.log(calc.subtract(5, 7)); // 2
-console.log(calc.multiply(5, 7)); // 35
-console.log(calc.divide(35, 7)); // 5
-console.log(calc.modulate(7, 5)); // 2
-console.log(calc.elevate(5, 3)); // 125
-console.log(calc.sqrt(25)); // 5
+### Example:
+
+```js
+// create new Pokemons
+let pikachu = new Pokemon("pikachu", 120, 80);
+let bulbasaur = new Pokemon("bulbasaur", 95, 105);
+
+// create new skills that Pokemons can learn
+let lightning = new AttackSkill("lightning", 40, 30);
+let bombing = new AttackSkill("poisonSeed", 20, 20);
+
+// pikachu learning skills
+pikachu.learnAttackSkill(lightning);
+pikachu.learnAttackSkill(bombing);
+
+// bulbasaur learning skills
+bulbasaur.learnAttackSkill(lightning);
+bulbasaur.learnAttackSkill(bombing);
+
+
+// Pokemons starts attacking each other
+pikachu.attack("lightning", bulbasaur);
+bulbasaur.attack("poisonSeed", pikachu);
+pikachu.attack("poisonSeed", bulbasaur);
+bulbasaur.attack("lightning", pikachu);
+pikachu.attack("lightning", bulbasaur);
+pikachu.attack("poisonSeed", bulbasaur); // bulbasaur is already dead!
+```
+
+That's it! You've completed the Pokemon Battle Simulation. Try to add more Pokemons and attack skills to make the battle more interesting.
